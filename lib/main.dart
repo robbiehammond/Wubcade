@@ -4,7 +4,7 @@ import 'package:flame/game.dart';
 import 'cup.dart';
 import 'source.dart';
 
-class PouringGame extends FlameGame with TapCallbacks {
+class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late Cup cup;
   late Source source;
 
