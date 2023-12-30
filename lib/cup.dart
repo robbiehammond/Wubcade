@@ -5,6 +5,8 @@ import 'droplet.dart';
 
 class Cup extends PositionComponent with CollisionCallbacks {
   static final _paint = Paint()..color = Colors.red;
+  static const double _fillIncreasePercent = 0.1;
+  double filledPercent = 0.0;
   late RectangleHitbox hitbox;
 
   Cup({
@@ -24,7 +26,8 @@ class Cup extends PositionComponent with CollisionCallbacks {
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Droplet) {
-      print("collided with Droplet");
+      filledPercent += _fillIncreasePercent;
+      print(filledPercent);
       /*
         Insert cup filling logic here.
       */

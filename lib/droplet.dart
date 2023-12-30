@@ -7,6 +7,7 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   static const Color color = Colors.blue;
   static const double dropletWidth = 30.0;
   static const double dropletHeight = 30.0;
+  static const int _fallSpeed = 200; //should be adjusted as we like.
   late RectangleHitbox hitbox;
 
   Droplet({
@@ -19,7 +20,7 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   @override
   void update(double dt) {
     super.update(dt);
-    position.y += 200 * dt; //speed should be adjusted.
+    position.y += _fallSpeed * dt;
 
   }
 
