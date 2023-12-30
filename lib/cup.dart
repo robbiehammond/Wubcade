@@ -2,11 +2,13 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'droplet.dart';
+import 'dart:math';
 
 class Cup extends PositionComponent with CollisionCallbacks {
   static final _paint = Paint()..color = Colors.red;
   static const double _fillIncreasePercent = 0.1;
   double filledPercent = 0.0;
+  late double _percentToFillTo;
   late RectangleHitbox hitbox;
 
   Cup({
@@ -15,6 +17,10 @@ class Cup extends PositionComponent with CollisionCallbacks {
   }) : super(position: position, size: size) {
     hitbox = RectangleHitbox();
     add(hitbox);
+
+    Random r = new Random();
+    _percentToFillTo = r.nextInt(91) + 5; // 5% <= _percentToFillTo <= 95%
+
   }
 
   @override

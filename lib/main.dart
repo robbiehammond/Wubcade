@@ -49,12 +49,18 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
   @override
   void onTapUp(TapUpEvent event) {
     source.stopPouring();
+    /*
+      TODO: Moves onto next cup here!
+    */
   }
 
   @override
   void onDragEnd(DragEndEvent e) {
     super.onDragEnd(e);
     source.stopPouring();
+    /*
+      TODO: Moves onto next cup here!
+    */
   }
 }
 
