@@ -1,12 +1,14 @@
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
+import 'package:wubcade/droplet.dart';
 import 'cup.dart';
 import 'source.dart';
 
 class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late Cup cup;
   late Source source;
+  late Vector2 screenSize;
 
   @override 
   Future<void> onLoad() async {
@@ -18,7 +20,7 @@ class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
     const double cupWidth = 100.0;
     const double cupHeight = 50.0;
 
-    final Vector2 screenSize = size;
+    screenSize = size;
 
     final sourceX = (screenSize.x - sourceWidth) / 2;
     source = Source(
@@ -29,7 +31,7 @@ class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
 
     final cupY = screenSize.y - cupHeight;
     cup = Cup(
-      position: Vector2(sourceX, cupY), 
+      position: Vector2(sourceX, screenSize.y / 4), 
       size: Vector2(cupWidth, cupHeight));
 
     add(source);
@@ -38,12 +40,16 @@ class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
 
   @override
   void onTapDown(TapDownEvent event) {
-    source.startPouring();
+    pourOne();
   }
 
   @override
   void onTapUp(TapUpEvent event) {
-    source.stopPouring();
+    //stopPour();
+  }
+
+  void pourOne() {
+    add(Droplet(position: Vector2(screenSize.x / 2, 0)));
   }
 }
 
