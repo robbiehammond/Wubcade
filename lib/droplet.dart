@@ -38,10 +38,7 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   }
 
   @override 
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Cup) removeFromParent();
   }

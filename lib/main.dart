@@ -12,11 +12,6 @@ class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late Source source;
   late Vector2 screenSize;
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-    print(children.length);
-  }
   @override 
   Future<void> onLoad() async {
     await super.onLoad();
@@ -51,16 +46,12 @@ class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
 
   @override
   void onTapDown(TapDownEvent event) {
-    pourOne();
+    source.startPouring();
   }
 
   @override
   void onTapUp(TapUpEvent event) {
-    //stopPour();
-  }
-
-  void pourOne() {
-    add(Droplet(position: Vector2(screenSize.x / 2, 0)));
+    source.stopPouring();
   }
 }
 

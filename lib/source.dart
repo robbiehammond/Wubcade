@@ -19,5 +19,19 @@ class Source extends PositionComponent {
   @override
   void update(double dt) {
     super.update(dt);
+    if (shouldPour) pour();
+  }
+
+  void pour() {
+    Droplet d = Droplet(position: Vector2(position.x + width / 2 - Droplet.dropletWidth / 2, position.y));
+    parent?.add(d);
+  }
+
+  void startPouring() {
+    shouldPour = true;
+  }
+
+  void stopPouring() {
+    shouldPour = false;
   }
 }
