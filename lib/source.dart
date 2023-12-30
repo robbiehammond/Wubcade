@@ -23,7 +23,7 @@ class Source extends PositionComponent {
   }
 
   void pour() {
-    Droplet d = Droplet(position: Vector2(position.x + width / 2 - Droplet.dropletWidth / 2, position.y));
+    Droplet d = Droplet(position: Vector2(position.x + width / 2 - Droplet.dropletWidth / 2, position.y + height));
     parent?.add(d);
   }
 

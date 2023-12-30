@@ -8,6 +8,7 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   static const double dropletWidth = 30.0;
   static const double dropletHeight = 30.0;
   static const int _fallSpeed = 200; //should be adjusted as we like.
+  bool enteredCupHasNotHitBottom = false;
   late RectangleHitbox hitbox;
 
   Droplet({
@@ -35,6 +36,7 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   @override 
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+    if (enteredCupHasNotHitBottom) removeFromParent();
     if (other is Cup) removeFromParent();
   }
 }
