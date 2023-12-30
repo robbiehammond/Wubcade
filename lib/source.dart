@@ -11,12 +11,21 @@ class Source extends PositionComponent {
     required Vector2 size, 
   }) : super(position: position, size: size);
 
-  void pour() {
-    //width / 2 gets the left edge of the drop to the middle of the source, Droplet.dropletWidth / 2 lines them up by their centers.
-    Droplet d = Droplet(position: Vector2(width / 2 - Droplet.dropletWidth / 2, height));
-    add(d);
+  @override
+  void render(Canvas canvas) {
+    canvas.drawRect(size.toRect(), _paint);
   }
 
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (shouldPour) pour();
+  }
+
+  void pour() {
+    Droplet d = Droplet(position: Vector2(position.x + width / 2 - Droplet.dropletWidth / 2, position.y));
+    parent?.add(d);
+  }
 
   void startPouring() {
     shouldPour = true;
@@ -24,19 +33,5 @@ class Source extends PositionComponent {
 
   void stopPouring() {
     shouldPour = false;
-  }
-
-  @override
-  void render(Canvas canvas) {
-    canvas.drawRect(size.toRect(), _paint);
-  }
-
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    if (shouldPour) {
-      pour(); //pour rate might need to be tweaked.
-    }
   }
 }
