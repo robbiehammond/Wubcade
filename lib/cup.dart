@@ -3,7 +3,6 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'droplet.dart';
 
-//TODO: collision detection between water and cup not actually doing anything right now. Not sure why.
 class Cup extends PositionComponent with CollisionCallbacks {
   static final _paint = Paint()..color = Colors.red;
   late RectangleHitbox hitbox;
@@ -26,6 +25,9 @@ class Cup extends PositionComponent with CollisionCallbacks {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Droplet) {
       print("collided with Droplet");
+      /*
+        Insert cup filling logic here.
+      */
       other.onRemove();
     }
   }

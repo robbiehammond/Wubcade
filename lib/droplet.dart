@@ -2,9 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:wubcade/cup.dart';
-import 'package:wubcade/source.dart';
 
-//TODO: collision detection between water and cup not actually doing anything right now. Not sure why.
 class Droplet extends PositionComponent with CollisionCallbacks {
   static const Color color = Colors.blue;
   static const double dropletWidth = 30.0;
@@ -16,11 +14,6 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   }) : super(position: position, size: Vector2(dropletWidth, dropletHeight)) {
     hitbox = RectangleHitbox();
     add(hitbox);
-  }
-
-  @override 
-  void onRemove() {
-    super.onRemove();
   }
 
   @override
