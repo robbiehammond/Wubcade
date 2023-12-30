@@ -4,7 +4,7 @@ import 'package:flame/game.dart';
 import 'cup.dart';
 import 'source.dart';
 
-class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
+class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisionDetection {
   late Cup cup;
   late Source source;
   late Vector2 screenSize;
@@ -50,8 +50,14 @@ class PouringGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   void onTapUp(TapUpEvent event) {
     source.stopPouring();
   }
+
+  @override
+  void onDragEnd(DragEndEvent e) {
+    super.onDragEnd(e);
+    source.stopPouring();
+  }
 }
 
 void main() {
-  runApp(GameWidget(game: PouringGame()));
+  runApp(GameWidget(game: PouringGame(), ));
 }

@@ -20,6 +20,7 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   void update(double dt) {
     super.update(dt);
     position.y += 200 * dt; //speed should be adjusted.
+
   }
 
   @override
