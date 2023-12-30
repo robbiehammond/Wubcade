@@ -29,6 +29,7 @@ class Cup extends PositionComponent with CollisionCallbacks {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Droplet) {
       print("collided with Droplet");
+      other.onRemove();
     }
   }
 }

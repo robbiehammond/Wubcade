@@ -14,11 +14,14 @@ class Droplet extends PositionComponent with CollisionCallbacks {
   Droplet({
     required Vector2 position,
   }) : super(position: position, size: Vector2(dropletWidth, dropletHeight)) {
-    print(position);
     hitbox = RectangleHitbox();
     add(hitbox);
   }
 
+  @override 
+  void onRemove() {
+    super.onRemove();
+  }
 
   @override
   void update(double dt) {
@@ -40,5 +43,6 @@ class Droplet extends PositionComponent with CollisionCallbacks {
     PositionComponent other,
   ) {
     super.onCollisionStart(intersectionPoints, other);
+    if (other is Cup) removeFromParent();
   }
 }
