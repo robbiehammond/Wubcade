@@ -9,9 +9,9 @@ class Cup extends PositionComponent with CollisionCallbacks {
   static final _paint = Paint()..color = Colors.red;
   static const double _fillIncreasePercent = 0.1;
   double filledPercent = 0.0;
+  late double _percentToFillTo;
   int _dropletsCollected = 0;
   int amountPoured = -1;
-  late double _percentToFillTo;
   late RectangleHitbox hitbox;
   final void Function() onFinishFilling;
   Cup({
@@ -44,8 +44,6 @@ class Cup extends PositionComponent with CollisionCallbacks {
       /*
         Insert cup filling logic here.
       */
-      print(_dropletsCollected);
-      print(amountPoured);
       other.onRemove();
     }
   }
@@ -63,7 +61,11 @@ class Cup extends PositionComponent with CollisionCallbacks {
     amountPoured = -1;
   }
 
-  void giveCorrectFillAmount(int amt) {
+  void getCorrectFillAmount(int amt) {
     amountPoured = amt;
+  }
+
+  double getPercentToFillTo() {
+    return _percentToFillTo;
   }
 }

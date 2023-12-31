@@ -50,14 +50,14 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
   @override
   void onTapUp(TapUpEvent event) {
     source.stopPouring();
-    cup.giveCorrectFillAmount(source.getPourAmount());
+    cup.getCorrectFillAmount(source.getPourAmount());
   }
 
   @override
   void onDragEnd(DragEndEvent e) {
     super.onDragEnd(e);
     source.stopPouring();
-    cup.giveCorrectFillAmount(source.getPourAmount());
+    cup.getCorrectFillAmount(source.getPourAmount());
   }
 
   void checkCorrectness() {
@@ -68,8 +68,28 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
   void resetGame() {
     cup.reset();
     source.reset();
+    double amt = cup.getPercentToFillTo();
+    print("New percent to fill to: $amt");
   }
 }
+
+/*
+  How stream and correctness work:
+    1. When stream starts (determined by source.startPouring), a count begins 
+       for the amount of drops that have left the source.
+    2. When stream hits cup, a count begins at the cup for how many drops it has collected.
+    3. Once stream stops (determined by source.stopPouring), the cup receives the amount of water that has been poured
+       (cup.getCorrectFillAmount(source.getPourAmount())).
+    4. The cup will continue counting the received drops like normal until the amount it 
+       has collected is equal to the amount that has been poured (Note: before the correct
+       fill amount has been assigned, it's listed as -1. This is so that the equality between
+       the amount of water poured and the amount of water collected can't be equal until the 
+       amount poured is learned by the cup)
+    5. Once the cup has collected all drops that have been poured, a function defined in the FlameGame
+       is called, essentially through a function pointer passed during the construction of the cup.
+       This function checks correctness and continues the game.
+
+*/  
 
 void main() {
   runApp(GameWidget(game: PouringGame(), ));
