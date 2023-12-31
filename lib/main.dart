@@ -44,7 +44,7 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
 
   @override
   void onTapDown(TapDownEvent event) {
-    source.startPouring();
+    if (!source.hasPouredThisTurn()) source.startPouring();
   }
 
   @override
