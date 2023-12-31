@@ -34,7 +34,8 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
     final cupY = screenSize.y - cupHeight - cupYOffset;
     cup = Cup(
       position: Vector2(sourceX, cupY), 
-      size: Vector2(cupWidth, cupHeight)
+      size: Vector2(cupWidth, cupHeight),
+      onFinishFilling: checkCorrectness
     );
 
     add(source);
@@ -49,18 +50,24 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
   @override
   void onTapUp(TapUpEvent event) {
     source.stopPouring();
-    /*
-      TODO: Moves onto next cup here!
-    */
+    cup.giveCorrectFillAmount(source.getPourAmount());
   }
 
   @override
   void onDragEnd(DragEndEvent e) {
     super.onDragEnd(e);
     source.stopPouring();
-    /*
-      TODO: Moves onto next cup here!
-    */
+    cup.giveCorrectFillAmount(source.getPourAmount());
+  }
+
+  void checkCorrectness() {
+    print(cup.correctness());
+    resetGame();
+  }
+
+  void resetGame() {
+    cup.reset();
+    source.reset();
   }
 }
 
