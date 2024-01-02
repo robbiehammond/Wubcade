@@ -1,6 +1,7 @@
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
+import 'dart:developer' as developer;
 import 'cup.dart';
 import 'source.dart';
 
@@ -35,7 +36,7 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
     cup = Cup(
       position: Vector2(sourceX, cupY), 
       size: Vector2(cupWidth, cupHeight),
-      onFinishFilling: checkCorrectness
+      onFinishFilling: checkCorrectnessAndProceed
     );
 
     add(source);
@@ -54,22 +55,31 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
   }
 
   @override
-  void onDragEnd(DragEndEvent e) {
-    super.onDragEnd(e);
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
     source.stopPouring();
     cup.getCorrectFillAmount(source.getPourAmount());
   }
 
-  void checkCorrectness() {
-    print(cup.correctness());
-    resetGame();
+  void checkCorrectnessAndProceed() {
+    double correctness = cup.percentError();
+    developer.log("You were $correctness percent off");
+    nextTurn();
   }
 
-  void resetGame() {
+  void nextTurn() {
+    /*
+      Insert logic for going to the next turn here. 
+      This stuff here is temporary.
+    */
+    resetAll();
+    int amt = cup.getDropletsNeeded();
+    developer.log("New amount of droplets to fill to: $amt");
+  }
+
+  void resetAll() {
     cup.reset();
     source.reset();
-    double amt = cup.getPercentToFillTo();
-    print("New percent to fill to: $amt");
   }
 }
 
@@ -88,9 +98,8 @@ class PouringGame extends FlameGame with TapCallbacks, DragCallbacks, HasCollisi
     5. Once the cup has collected all drops that have been poured, a function defined in the FlameGame
        is called, essentially through a function pointer passed during the construction of the cup.
        This function checks correctness and continues the game.
-
 */  
 
 void main() {
-  runApp(GameWidget(game: PouringGame(), ));
+  runApp(GameWidget(game: PouringGame()));
 }

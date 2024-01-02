@@ -22,7 +22,6 @@ class Source extends PositionComponent {
   void update(double dt) {
     super.update(dt);
     if (shouldPour) pour();
-
   }
 
   void pour() {
